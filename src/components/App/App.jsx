@@ -5,6 +5,7 @@ import Header from '../Header'
 import Items from '../Items'
 import Menu from '../Menu'
 import Stats from '../Stats'
+import Settings from '../Settings'
 import styles from './App.module.scss'
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <div className={styles.app}>
         <Header />
         <Content>
-          <Stats />
+          <Settings />
         </Content>
         <Menu />
       </div>

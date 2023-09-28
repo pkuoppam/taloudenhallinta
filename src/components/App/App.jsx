@@ -1,11 +1,25 @@
+import { useState } from 'react'
 import AppRouter from '../AppRouter'
 import testdata from './testdata.js'
 
 function App() {
+  
+  const [data, setData] = useState(testdata)
+
+  const handleItemSubmit = (newitem) => {
+    let copy = data.slice()
+    copy.push(newitem)
+    copy.sort( (a,b) => {
+      const aDate = new Date(a.paymentDate)
+      const bDate = new Date(b.paymentDate)
+      return bDate - aDate
+    })
+    setData(copy)
+  }
 
   return (
     <>
-      <AppRouter data={testdata} />
+      <AppRouter data={data} onItemSubmit={handleItemSubmit} />  
     </>
   )
 }

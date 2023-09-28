@@ -6,19 +6,21 @@ import Settings from '../Settings'
 import Stats from '../Stats'
 
 function AppRouter(props) {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Root />,
-      errorElement: <ErrorPage />,
-      children: [
-        { path: "", element: <Items /> },
-        { path: "stats", element: <Stats /> },
-        { path: "settings", element: <Settings /> }
-      ]
-    }
-  ])
-
+    const router = createBrowserRouter([
+        {
+          path: "/",
+          element: <Root />,
+          errorElement: <ErrorPage />,
+          children: [
+            { path: "", 
+              element: <Items />, 
+              loader: () => { return props.data } },
+            { path: "stats", element: <Stats /> },
+            { path: "settings", element: <Settings /> }
+          ]
+        }
+      ])
+    
   return (
     <RouterProvider router={router} />
   )

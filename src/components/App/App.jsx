@@ -2,7 +2,7 @@ import { useState } from 'react'
 import useLocalStorage from '../../shared/uselocalstorage/uselocalstorage'
 import AppRouter from '../AppRouter'
 import firebase from './firebase.js'
-import { collection, deleteDoc, doc, getFirestore, onSnapshot, setDoc  } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getFirestore, onSnapshot, orderBy, query, setDoc  } from 'firebase/firestore'
 import { useEffect } from 'react'
 
 function App() {
@@ -12,12 +12,14 @@ function App() {
   const firestore = getFirestore(firebase)
   
   useEffect( () => {
-    const unsubscribe = onSnapshot(collection(firestore,'item'), snapshot => {
+    const unsubscribe = onSnapshot(query(collection(firestore,'item'),
+                                         orderBy('paymentDate', 'desc')),
+                                   snapshot => {
       const newData = []
       snapshot.forEach( doc => {
         newData.push({ ...doc.data(), id: doc.id })
       })
-      setData(newData)    
+      setData(newData)
     })
     return unsubscribe
   }, [])
